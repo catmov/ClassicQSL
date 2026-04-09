@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QSL Card Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+    <main class="app">
+      <aside class="panel">
+        <h1>QSL Card Generator</h1>
+        <p class="subhead">Clean, print-ready, and easy to fill.</p>
+
+        <form id="qslForm" autocomplete="off">
+          <section>
+            <h2>Station</h2>
+            <div class="fields two-col">
+              <label>
+                Your Callsign
+                <input id="callsign" name="callsign" type="text" required maxlength="12" placeholder="K1ABC" />
+              </label>
+              <label>
+                Operator
+                <input id="operator" name="operator" type="text" maxlength="40" placeholder="Your Name" />
+              </label>
+              <label>
+                QTH
+                <input id="qth" name="qth" type="text" maxlength="50" placeholder="City, State" />
+              </label>
+              <label>
+                Country
+                <input id="country" name="country" type="text" maxlength="40" placeholder="United States" />
+              </label>
+              <label>
+                Grid
+                <input id="grid" name="grid" type="text" maxlength="10" placeholder="EM10" />
+              </label>
+              <label>
+                Contacted Station
+                <input id="qsoWith" name="qsoWith" type="text" maxlength="12" placeholder="JA1XYZ" />
+              </label>
+            </div>
+          </section>
+
+          <section>
+            <h2>QSO Details</h2>
+            <div class="fields two-col">
+              <label>
+                Date
+                <input id="qsoDate" name="qsoDate" type="date" />
+              </label>
+              <label>
+                Time (UTC)
+                <input id="qsoTime" name="qsoTime" type="time" />
+              </label>
+              <label>
+                Band
+                <input id="band" name="band" type="text" maxlength="10" placeholder="20m" />
+              </label>
+              <label>
+                Frequency
+                <input id="frequency" name="frequency" type="text" maxlength="20" placeholder="14.074 MHz" />
+              </label>
+              <label>
+                Mode
+                <input id="mode" name="mode" type="text" maxlength="12" placeholder="FT8 / SSB / CW" />
+              </label>
+              <label>
+                RST Sent
+                <input id="rstSent" name="rstSent" type="text" maxlength="5" placeholder="59" />
+              </label>
+              <label>
+                RST Received
+                <input id="rstRcvd" name="rstRcvd" type="text" maxlength="5" placeholder="57" />
+              </label>
+              <label>
+                Their Grid
+                <input id="theirGrid" name="theirGrid" type="text" maxlength="10" placeholder="PM95" />
+              </label>
+            </div>
+          </section>
+
+          <section>
+            <h2>Station Setup</h2>
+            <div class="fields two-col">
+              <label>
+                Rig
+                <input id="rig" name="rig" type="text" maxlength="50" placeholder="ICOM IC-7300" />
+              </label>
+              <label>
+                Antenna
+                <input id="antenna" name="antenna" type="text" maxlength="50" placeholder="Dipole @ 10m" />
+              </label>
+              <label>
+                Power
+                <input id="power" name="power" type="text" maxlength="20" placeholder="100W" />
+              </label>
+              <label>
+                Weather
+                <input id="weather" name="weather" type="text" maxlength="30" placeholder="Clear, 18C" />
+              </label>
+            </div>
+            <label>
+              Notes
+              <textarea id="notes" name="notes" rows="3" maxlength="240" placeholder="Short greeting or confirmation note."></textarea>
+            </label>
+          </section>
+
+          <section>
+            <h2>Front Cover Photo</h2>
+            <p class="subtext">Add a photo to the front of your QSL card (optional).</p>
+            <div class="fields">
+              <label class="photo-upload-label">
+                <span class="photo-upload-btn">Choose photo…</span>
+                <input id="frontCoverPhoto" name="frontCoverPhoto" type="file" accept="image/*" hidden />
+              </label>
+              <button type="button" id="removeFrontPhotoBtn" class="secondary" style="display: none;">Remove photo</button>
+            </div>
+          </section>
+
+          <section>
+            <h2>Card Style</h2>
+            <div class="fields two-col">
+              <label>
+                Theme
+                <select id="theme" name="theme">
+                  <option value="classic">Classic Details</option>
+                  <option value="modern">Modern Sleek</option>
+                  <option value="vintage">Vintage Postcard</option>
+                  <option value="blank">Blank form</option>
+                </select>
+              </label>
+              <label>
+                Card Size
+                <select id="cardSize" name="cardSize">
+                  <option value="3.5x5.5">3.5 x 5.5 in (standard)</option>
+                  <option value="4x6">4 x 6 in (postcard)</option>
+                  <option value="4.13x5.83">A6</option>
+                </select>
+              </label>
+              <label>
+                Orientation
+                <select id="orientation" name="orientation">
+                  <option value="landscape">Landscape</option>
+                  <option value="portrait">Portrait</option>
+                </select>
+              </label>
+              <label>
+                Accent
+                <select id="accent" name="accent">
+                  <option value="#243447">Charcoal Blue</option>
+                  <option value="#374151">Slate</option>
+                  <option value="#4b3f35">Warm Brown</option>
+                  <option value="#1f513f">Pine</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section>
+            <h2>Batch Operations</h2>
+            <p class="subtext">Import an ADIF file to selectively generate QSL cards in bulk.</p>
+            <div class="fields">
+              <label class="photo-upload-label">
+                <span class="photo-upload-btn">Import ADIF...</span>
+                <input id="adifInput" name="adifInput" type="file" accept=".adi,.adif" hidden />
+              </label>
+            </div>
+          </section>
+
+          <div class="actions">
+            <button type="button" id="sampleBtn">Load Sample</button>
+            <button type="reset" id="clearBtn">Clear</button>
+            <button type="button" id="printBtn" class="primary">Print Card</button>
+            <button type="button" id="downloadFrontPngBtn">Download Front PNG</button>
+            <button type="button" id="downloadPngBtn">Download Back PNG</button>
+          </div>
+        </form>
+      </aside>
+
+      <section class="preview-wrap">
+        <div class="preview-head">
+          <h2>Live Preview</h2>
+          <p>Print on white cardstock — front and back.</p>
+        </div>
+
+        <div class="qsl-cards-wrap" id="qslCardsWrap">
+          <article class="qsl-card qsl-card-front" id="qslCardFront" aria-label="QSL card front">
+            <div class="card-front-bg" id="cardFrontPhotoWrap" style="display: none;">
+              <img id="cardFrontPhotoImg" src="" alt="" class="card-front-photo" />
+            </div>
+            <div class="card-front-inner">
+              <div class="card-front-text-bubble">
+                <p class="card-front-kicker">Amateur Radio</p>
+                <p class="card-front-qsl">QSL</p>
+                <h2 class="card-front-callsign" id="previewCallsignFront">K1ABC</h2>
+                <p class="card-front-operator" id="previewOperatorFront">Your Name</p>
+                <p class="card-front-location"><span id="previewQthFront">City, State</span> · <span id="previewCountryFront">United States</span></p>
+                <p class="card-front-grid">Grid: <span id="previewGridFront">EM10</span></p>
+              </div>
+            </div>
+          </article>
+
+          <article class="qsl-card qsl-card-back" id="qslCard">
+          <header class="card-header">
+            <div>
+              <p class="kicker">Amateur Radio</p>
+              <h3 id="previewCallsign">K1ABC</h3>
+            </div>
+            <div class="header-note">QSL Confirmation Card</div>
+          </header>
+
+          <main class="card-main">
+            <section class="contact-grid">
+              <p><span>QSO With</span><strong id="previewQsoWith">JA1XYZ</strong></p>
+              <p><span>Date</span><strong id="previewDate">Mar 01, 2026</strong></p>
+              <p><span>Time (UTC)</span><strong id="previewTime">18:32</strong></p>
+              <p><span>Band</span><strong id="previewBand">20m</strong></p>
+              <p><span>Frequency</span><strong id="previewFrequency">14.074 MHz</strong></p>
+              <p><span>Mode</span><strong id="previewMode">FT8</strong></p>
+              <p><span>RST Sent</span><strong id="previewRstSent">59</strong></p>
+              <p><span>RST Rcvd</span><strong id="previewRstRcvd">57</strong></p>
+            </section>
+
+            <section class="station-grid">
+              <p><span>Operator</span><strong id="previewOperator">Your Name</strong></p>
+              <p><span>QTH</span><strong id="previewQth">City, State</strong></p>
+              <p><span>Country</span><strong id="previewCountry">United States</strong></p>
+              <p><span>Grid</span><strong id="previewGrid">EM10</strong></p>
+              <p><span>Their Grid</span><strong id="previewTheirGrid">PM95</strong></p>
+              <p><span>Rig</span><strong id="previewRig">ICOM IC-7300</strong></p>
+              <p><span>Antenna</span><strong id="previewAntenna">Dipole @ 10m</strong></p>
+              <p><span>Power</span><strong id="previewPower">100W</strong></p>
+              <p><span>Weather</span><strong id="previewWeather">Clear, 18C</strong></p>
+            </section>
+          </main>
+
+          <section class="notes">
+            <h4>Notes</h4>
+            <p id="previewNotes">Great contact. 73 and hope to work you again.</p>
+          </section>
+        </article>
+        </div>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <p>Made By Sai VK3XBR - 2025 - Have Fun and Stay Safe! 73s</p>
+    </footer>
+    </div>
+    <div id="adifModal" class="modal-overlay" style="display: none;">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2>Select Contacts to Print</h2>
+          <button id="closeModalBtn" class="close-btn">&times;</button>
+        </header>
+        <div class="modal-actions">
+          <button id="selectAllBtn" class="secondary">Select All</button>
+          <button id="deselectAllBtn" class="secondary">Deselect All</button>
+        </div>
+        <div class="modal-body">
+          <table class="contacts-table">
+            <thead>
+              <tr>
+                <th style="width: 40px;">Print</th>
+                <th>Callsign</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Band</th>
+                <th>Mode</th>
+              </tr>
+            </thead>
+            <tbody id="contactsTbody">
+              <!-- JS injected rows -->
+            </tbody>
+          </table>
+        </div>
+        <footer class="modal-footer">
+          <button id="generateZipBtn" class="primary">Download ZIP of Selected</button>
+        </footer>
+      </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+      <div class="spinner"></div>
+      <p id="loadingText">Generating Zip...</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
